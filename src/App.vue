@@ -1,20 +1,20 @@
 <template>
-  <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
+  <div class="h-screen w-full flex items-center justify-center bg-teal-lightest font-sans">
 	<div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div class="mb-4">
-            <h1 class="text-grey-800 font-bold text-xl">Creative Coder Monthly Expenses</h1>
-            <p class="text-grey-800 my-3 text-md">Total left expense amount for {{currentMonth}} - {{totalLeftAmount}} MMK</p>
+            <h1 class="text-grey-800 font-bold text-lg md:text-xl">Creative Coder Monthly Expenses</h1>
+            <p class="text-grey-800 my-3 text-sm md:text-md">Total left expense amount for {{currentMonth}} - {{totalLeftAmount}} MMK</p>
             <div class="flex mt-4">
-                <input ref="expenseInput" v-model="title" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Expense Name">
+                <input ref="expenseInput" v-model="title" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Expense">
                 <input v-model="amount" type="number" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Amount">
                 <button @click="addExpense" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded  text-grey border-grey hover:bg-gray-500 hover:text-white">Add</button>
             </div>
         </div>
-        <div>
+        <div v-if="expenses.length">
             <template v-for="expense in expenses" :key="expense.id">
               <div class="flex mb-4 items-center"  >
                   <div v-if="expense.isEdit" class="flex mt-4">
-                    <input ref="expenseInput" v-model="expense.title" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Expense Name">
+                    <input ref="expenseInput" v-model="expense.title" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Expense">
                     <input v-model="expense.amount" type="number" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Amount">
                      <button  @click="update(expense)" class="flex-no-shrink p-2 ml-2 border-2 rounded text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500">Update</button>
                   </div>
@@ -25,6 +25,9 @@
                   </template>
               </div>
             </template>
+        </div>
+        <div v-else class="text-center text-gray-400 mt-4">
+          No Expenses Yet.
         </div>
     </div>
 </div>
